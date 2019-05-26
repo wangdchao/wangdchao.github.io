@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/26/Homework4/1.PNG">
 <meta property="og:image" content="http://yoursite.com/2019/05/26/Homework4/11-1558860660296.PNG">
 <meta property="og:image" content="http://yoursite.com/2019/05/26/Homework4/22-1558863338034.PNG">
-<meta property="og:updated_time" content="2019-05-26T10:33:44.731Z">
+<meta property="og:updated_time" content="2019-05-26T10:43:51.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用例建模 - 绘制用例图">
 <meta name="twitter:description" content="简答题1.用例的概念用例功能要求或行为要求，以指示系统将做什么，是相关成功和失败场景的集合，描述了使用系统来达到某个目标的参与者。 2.用例和场景的关系？什么是主场景或 happy path？用例表示场景的集合：主方案，加上零或多个备选方案。 主场景对应于主要的系统交互，通常是“成功”场景。 3.用例有哪些形式？ Brief：简洁的一段总结，通常是主要的成功情景. Casual：非正式段落格式。涵">
@@ -158,21 +158,129 @@
 <li><p><strong>如何利用用例图定位创新思路（业务创新、或技术创新、或商业模式创新）在系统中的作用：</strong>在用例图中对创新用例使用某种颜色进行高亮标记，可以很方便地让需求方、开发人员快速了解该系统的创新功能以及该模块相关依赖和输入输出结果。</p>
 </li>
 <li><p><strong>请使用 SCRUM 方法，选择一个用例图，编制某定旅馆开发的需求（backlog）开发计划表：</strong> </p>
-<p>|  ID  |   Name   | Imp  |   | How to Demo | Notes |<br>| :–: | :——: | :—: | ———– | —– | —- |<br>|  1   |   注册   | 20 | 2 | 采用手机号注册并验证 |       |<br>|  2   |   登录   | 15 | 2 | 采用手机号密码登录或手机验证登录 | 不可多地同时登录 |<br>|  3   | 查找旅馆 | 20 | 5 | 进入搜索栏，采用酒店名称、地图搜索、关键字搜索 |       |<br>|  4   |   预定   | 25 | 3 | 与定在指定日期内的空房间，表明预定期限 | 防止多人同时预定同一房间 |<br>|  5   | 支付定金 | 20 | 2 | 采用多种方式网上支付定金，并限制支付时限 |       |<br>| 6 | 更换房间 |  |  | 用户可以更换为其它空房间，并按情况支付一定的差价 | 房间跟换后，原来的房间应该显示为空 |</p>
 </li>
 </ul>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">ID</th>
+<th style="text-align:center">Name</th>
+<th style="text-align:center">Imp</th>
+<th>Est</th>
+<th>How to Demo</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">注册</td>
+<td style="text-align:center">20</td>
+<td>2</td>
+<td>采用手机号注册并验证</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">登录</td>
+<td style="text-align:center">15</td>
+<td>2</td>
+<td>采用手机号密码登录或手机验证登录</td>
+<td>不可多地同时登录</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">查找旅馆</td>
+<td style="text-align:center">20</td>
+<td>5</td>
+<td>进入搜索栏，采用酒店名称、地图搜索、关键字搜索</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">预定</td>
+<td style="text-align:center">25</td>
+<td>3</td>
+<td>与定在指定日期内的空房间，表明预定期限</td>
+<td>防止多人同时预定同一房间</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">支付定金</td>
+<td style="text-align:center">20</td>
+<td>2</td>
+<td>采用多种方式网上支付定金，并限制支付时限</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">更换房间</td>
+<td style="text-align:center">25</td>
+<td>5</td>
+<td>用户可以更换为其它空房间，并按情况支付一定的差价</td>
+<td>房间跟换后，原来的房间应该显示为空</td>
+</tr>
+</tbody>
+</table>
+<p>​    </p>
 <ul>
-<li><p><strong>根据任务4，参考 <a href="https://www.ibm.com/developerworks/cn/rational/edge/09/mar09/collaris_dekker/index.html" target="_blank" rel="noopener">使用用例点估算软件成本</a>，给出项目用例点的估算：</strong></p>
-<p>|   用例   | 事务 | 计算 | 权重 |<br>| :——: | :–: | :–: | :–: |<br>|   注册   |  2   |  1   | 简单 |<br>|   登录   |  2   |  1   | 简单 |<br>| 查找旅馆 |  8   |  7   | 一般 |<br>|   预定   |  2   |  1   | 简单 |<br>| 支付定金 |  6   |  4   | 一般 |<br>| 更换房间 |  9   |  7   | 复杂 |<br>|          |      |      |      |</p>
-</li>
+<li><strong>根据任务4，参考 <a href="https://www.ibm.com/developerworks/cn/rational/edge/09/mar09/collaris_dekker/index.html" target="_blank" rel="noopener">使用用例点估算软件成本</a>，给出项目用例点的估算：</strong></li>
 </ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">用例</th>
+<th style="text-align:center">事务</th>
+<th style="text-align:center">计算</th>
+<th style="text-align:center">权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">注册</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">简单</td>
+</tr>
+<tr>
+<td style="text-align:center">登录</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">简单</td>
+</tr>
+<tr>
+<td style="text-align:center">查找旅馆</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">一般</td>
+</tr>
+<tr>
+<td style="text-align:center">预定</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">简单</td>
+</tr>
+<tr>
+<td style="text-align:center">支付定金</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">一般</td>
+</tr>
+<tr>
+<td style="text-align:center">更换房间</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">复杂</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/26/Homework4/" data-id="cjw4t2reo00009sorq6f53icu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/26/Homework4/" data-id="cjw4tfim70002r8ormx7gcn0f" class="article-share-link">Share</a>
       
       
     </footer>
