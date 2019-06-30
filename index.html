@@ -150,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/30/Fontend-Deployment/" data-id="cjxj510rf0000z4orv6uox5mu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/30/Fontend-Deployment/" data-id="cjxj6s04s0000lwor9a7bon8t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -224,11 +224,43 @@
 <h3 id="组件内部还包含其它组件"><a href="#组件内部还包含其它组件" class="headerlink" title="组件内部还包含其它组件"></a>组件内部还包含其它组件</h3><p>有时跳转到一个组件的时候，组件里面还包含着其它的组件(即这个组件里也有\&lt;router-view>标签)，此时需要用到子路由能让新组件里面的子组件显示，如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">      path: <span class="string">'/User/:id'</span>,</span><br><span class="line">      name: <span class="string">'User'</span>,</span><br><span class="line">      component: User,</span><br><span class="line">      children: [</span><br><span class="line">        </span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">"GetJob"</span>, <span class="attr">component</span>: Getjob &#125;, </span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">"Putjob"</span>, <span class="attr">component</span>: Putjob &#125;,</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>以上便是子路由的定义，它由children后的映射定义。</p>
-<h3 id="组件传参"><a href="#组件传参" class="headerlink" title="组件传参"></a>组件传参</h3>
+<h3 id="组件之间的传值"><a href="#组件之间的传值" class="headerlink" title="组件之间的传值"></a>组件之间的传值</h3><p>组件之间可能涉及到传值，如父组件需要将本地一个属性的值传到子组件，子组件有时也需要传个值给父组件以期望父组件进行相应的更新。当然，对于路由跳转是，也许新跳转的组件需要一些初始的值来初始化自己数据的定义或初始的网络请求的参数。针对这两种情况各有各的方法。</p>
+<h4 id="对于路由跳转到一个新的组件页面时通过路由传参"><a href="#对于路由跳转到一个新的组件页面时通过路由传参" class="headerlink" title="对于路由跳转到一个新的组件页面时通过路由传参"></a>对于路由跳转到一个新的组件页面时通过路由传参</h4><p>路由传参有两种方式：</p>
+<ul>
+<li><p>在调用$router的push函数时，除了path外，新加一个params字段，该字段是一个json类型的，也可以是一个单值。这个params的值就会通过路由传到新的路由跳转到的组件中。如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123;<span class="attr">path</span>:<span class="string">'/User/Part/myTodoTask'</span>,<span class="attr">params</span>:&#123;<span class="attr">first</span>:值，second：值&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>此时在新的组件主需要调用$route.params便可以获得上面定义的params的值。</p>
+</li>
+<li><p>除了params之外，还可以通过query这个关键值传值，而它与params的区别在params的值会在浏览器的路径名中显示出来。而query则不会。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123;<span class="attr">path</span>:<span class="string">'/User/Part/myTodoTask'</span>,<span class="attr">query</span>:&#123;<span class="attr">first</span>:值，second：值&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>同样调用\$route.query便可以得到query中的json值。</p>
+</li>
+</ul>
+<h4 id="父子组件之间的传值"><a href="#父子组件之间的传值" class="headerlink" title="父子组件之间的传值"></a>父子组件之间的传值</h4><p>优势两个组件的关系是固定的，并不会采用路由来跳转，所以这时在父子之间的传值，如下。</p>
+<ul>
+<li><p>父组件向子组件传值：这种情况需要在子组件中用到props.如下图，据题参考：<a href="https://www.runoob.com/vue2/vue-component.html" target="_blank" rel="noopener">props</a>。</p>
+</li>
+<li><p>子组件向父组件传值：这种利用了事件的冒泡原理，有子元素发生的事件会一层层上浮，所以在子组件自定义一个事件，主动触发这个事件，父组件接受到该事件后进行相应的处理，从而实现自子组件向父组件的传值。主动触发事件，调用函数\$emit()，即可，\$emit(‘enlarge-text’, 0.1)，第一个参数便是自定义事件名，第二个是事件携带的参数。在父组件中只需要注册号该事件的监听器就行了，并配置相应的相应函数即可。可以参考如下：<a href="https://cn.vuejs.org/v2/guide/components.html" target="_blank" rel="noopener">参考</a>。</p>
+</li>
+</ul>
+<h4 id="其它传值"><a href="#其它传值" class="headerlink" title="其它传值"></a>其它传值</h4><p>  其实对于很多组件页面都需要用到的值，可以利用浏览器提供的缓存来进行，而不要进行复杂的路由传值、父子传值。</p>
+<p>这个缓存推荐使用SessionStorage.这个缓存只要是在浏览器同一个窗口的页面都可以访问。而具体使用起来很简单。四个操作：</p>
+<ul>
+<li><p>sessionStorage.setItem(“data”, msg.value) ：将一个值存到缓存中，访问名称为’data‘。插入一个项目</p>
+</li>
+<li><p>sessionStorage.getItem(“data”)：获取访问名称为’data‘的值</p>
+</li>
+<li><p>sessionStorage.removeChild(msg); ：删除访问名称为msg的值的这条项目</p>
+</li>
+<li><p>sessionStorage.clear()：清空缓存中的数据。</p>
+</li>
+</ul>
+<p>以上便是我自己对于vue路由、组件以及它们之间传值的一些总结。其中部分图片来自<a href="https://www.runoob.com/vue2/vue-tutorial.html" target="_blank" rel="noopener">菜鸟教程</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/27/techblog/" data-id="cjxj510s50003z4orrlivfw9p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/27/techblog/" data-id="cjxj6s05z0006lworsg6k3lxd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -290,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/26/Homework5/" data-id="cjxj510rt0001z4or5l09dcw0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/26/Homework5/" data-id="cjxj6s05q0004lwor96xton3a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -511,7 +543,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/26/Homework4/" data-id="cjxj510s90004z4oru2r5846u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/26/Homework4/" data-id="cjxj6s05l0003lwor99dgtwts" class="article-share-link">Share</a>
       
       
     </footer>
@@ -598,7 +630,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/Homework3/" data-id="cjxj510th0006z4orf10pkddw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/Homework3/" data-id="cjxj6s0570001lworfogo50ke" class="article-share-link">Share</a>
       
       
     </footer>
@@ -657,7 +689,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/27/Homework2/" data-id="cjxj510rz0002z4orzgwhlf9b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/27/Homework2/" data-id="cjxj6s05f0002lworqn3x5zxt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -748,7 +780,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/10/Homework_1/" data-id="cjxj510te0005z4ortkllnvy3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/10/Homework_1/" data-id="cjxj6s05u0005lworajp8w2n6" class="article-share-link">Share</a>
       
       
     </footer>
