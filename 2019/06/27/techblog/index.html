@@ -7,14 +7,20 @@
   
   <title>vue组件与路由 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="目前对于web网页前端开发来说，具有很多的前端框架，其中vue所提供的的前端框架在最近几年算是比较热门的了。这里，我就想总结一下我自己对于一下在vue框架在搭建单页网页应用时组件与路由，当然，你也可以到一些具体的教程网站上去学习，比如vue的官网、菜鸟教程中都有vue的使用教程。 至于vue的安装以及初始项目的创建，可以参考这里。 基于vue的单页和多页在进行web网页的书写时，我们都会涉及到多个">
+<meta property="og:type" content="article">
 <meta property="og:title" content="vue组件与路由">
 <meta property="og:url" content="http://yoursite.com/2019/06/27/techblog/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="目前对于web网页前端开发来说，具有很多的前端框架，其中vue所提供的的前端框架在最近几年算是比较热门的了。这里，我就想总结一下我自己对于一下在vue框架在搭建单页网页应用时组件与路由，当然，你也可以到一些具体的教程网站上去学习，比如vue的官网、菜鸟教程中都有vue的使用教程。 至于vue的安装以及初始项目的创建，可以参考这里。 基于vue的单页和多页在进行web网页的书写时，我们都会涉及到多个">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-30T06:27:30.868Z">
+<meta property="og:image" content="http://yoursite.com/2019/06/27/techblog/p1.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/27/techblog/1.PNG">
+<meta property="og:updated_time" content="2019-06-30T15:56:38.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue组件与路由">
+<meta name="twitter:description" content="目前对于web网页前端开发来说，具有很多的前端框架，其中vue所提供的的前端框架在最近几年算是比较热门的了。这里，我就想总结一下我自己对于一下在vue框架在搭建单页网页应用时组件与路由，当然，你也可以到一些具体的教程网站上去学习，比如vue的官网、菜鸟教程中都有vue的使用教程。 至于vue的安装以及初始项目的创建，可以参考这里。 基于vue的单页和多页在进行web网页的书写时，我们都会涉及到多个">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/27/techblog/p1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -83,11 +89,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>目前对于web网页前端开发来说，具有很多的前端框架，其中vue所提供的的前端框架在最近几年算是比较热门的了。这里，我就想总结一下我自己对于一下在vue框架在搭建单页网页应用时组件与路由，当然，你也可以到一些具体的教程网站上去学习，比如<a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">vue的官网</a>、菜鸟教程中都有vue的使用教程。</p>
+<p>至于vue的安装以及初始项目的创建，<a href="https://www.runoob.com/vue2/vue-install.html" target="_blank" rel="noopener">可以参考这里</a>。</p>
+<h3 id="基于vue的单页和多页"><a href="#基于vue的单页和多页" class="headerlink" title="基于vue的单页和多页"></a>基于vue的单页和多页</h3><p>在进行web网页的书写时，我们都会涉及到多个页面之间的切换等，这时，可以采用多页网页应用，虽然vue本身基于vue-cli是基于单页的，但是也可以更改成多页，查看vue<a href="https://segmentfault.com/a/1190000011265006" target="_blank" rel="noopener">构建多页应用可以参考这个链接</a>。</p>
+<p>当然，采用vue的组件和路由也可以实现单个页面的多个视图之间的切换，只不过是将原来的多页面更换成vue中的组件，在利用路由进行切换即可。</p>
+<p>vue的路由用来实现各个子视图之间的跳转。而vue的路由实现便是通过vue-router这个库来实现的。当你需要使用vue-router是，你需要采用npm指令来安装这个库，并在你的vue项目中引用：</p>
+<blockquote>
+<p>import Router from ‘vue-router’</p>
+</blockquote>
+<p>在指定的管理路由与组件的文件(通常是在src文件下新建router文件夹，并新建index.js,依次来管理路由)使用如下的：</p>
+<blockquote>
+<p>import Vue from ‘vue’</p>
+<p>Vue.use(Router)</p>
+</blockquote>
+<p>其中首先引入vue模块，然后调用use()函数表示在该文件中使用vue-router这个库对象。之后便可以用它配置组件与路由路径的对应关系了，首先引入组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Hello <span class="keyword">from</span> <span class="string">'@/components/Hello'</span></span><br><span class="line"><span class="keyword">import</span> Signin <span class="keyword">from</span> <span class="string">'../components/Auth/Signin'</span></span><br></pre></td></tr></table></figure>
+<p>然后声明一个新的Router（引入的vue-router）实例，并在其中定义组件与路由路径的对应关系：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/Hello'</span>,</span><br><span class="line">      name: <span class="string">'Hello'</span>,</span><br><span class="line">      component: Hello</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/Signin'</span>,</span><br><span class="line">      name: <span class="string">'Signin'</span>,</span><br><span class="line">      component: Signin</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>new</strong>用于产生新的Router实例，然后在里面定义映射关系。</p>
+<h4 id="vue组件"><a href="#vue组件" class="headerlink" title="vue组件"></a>vue组件</h4><p>接着需要了解到vue里面的组件。在vue项目里，一个页面几乎是由组件及其相互关系来构建的，vue项目就好像是一栋房子，组件就是这房子的砖块，由<strong>‘砖块’</strong>构成总的项目，其中的结构如下图：</p>
+<p><img src="/2019/06/27/techblog/p1.png" alt="0"></p>
+<p>绿色代表组件，以上是一个页面与组件组成的映射关系。组件自检的关系有兄弟和父子关系。每个组件的定义实质上也是html元素的集合，如定义一个简单的组件，单独在一个.vue文件里定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;h1&gt;组件样例&lt;/h1&gt;</span><br><span class="line">	&lt;div&gt;这是组件的另一个html块元素&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default&#123;</span><br><span class="line">	name:&apos;组件名&apos;,</span><br><span class="line">	watch:&#123;&#125;,</span><br><span class="line">	method:&#123;&#125;,</span><br><span class="line">	data() &#123;</span><br><span class="line">		return &#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>以上定义了一个简单的组件，它有html元素h1和div组成其中\&lt;script>的export中定义组件的名称，以及定义了给组件内部定义的js脚本，你可以在method里面定义函数用来更新data里面返回的这个组件的属性，也可以用来响应里面的时间如click等。\&lt;style>则定义了组件html中的样式。当然，js和css（script、style）可以用import其它文件中导入到这个组件文件中。</p>
+<p>定义好了组件后，如果要在某个组件中用到某个组件，只需要用import导入某个组件到某个变量后，把它当做一个html元素名，以\&lt;组件名>\&lt;/组件名>的形式放到指定的父组件中指定的位置即可。如下：</p>
+<blockquote>
+<p>import Recharge from ‘../components/User/Recharge.vue’</p>
+<p>  import Withdraw from ‘../components/User/Withdraw.vue’</p>
+</blockquote>
+<p><img src="/2019/06/27/techblog/1.PNG" alt="1"></p>
+<h3 id="路由与组件的结合"><a href="#路由与组件的结合" class="headerlink" title="路由与组件的结合"></a>路由与组件的结合</h3><p>视图切换就是由某个组件跳到某个组件，这个路由跳转有两种形式。</p>
+<ul>
+<li><p>直接在html利用\&lt;router-link>元素来跳转，其中定义了跳转的路径，就是在上面的index.js中定义的与组件对应的路径名。当点击这个链接是，就会跳转到指定的组件，而跳转到的组件显示的位置，由\<router-view path="’路由路径‘\">组件决定。所以这两个元素是搭配使用的。</router-view></p>
+</li>
+<li><p>在组件对应的js中，利用函数中的router实例调用push(‘路由路径’),来实现跳转。此时可以不再需要\&lt;router-link>标签。</p>
+<blockquote>
+<p>this.$router.push(‘/User/Part/myTodoTask’)</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="组件内部还包含其它组件"><a href="#组件内部还包含其它组件" class="headerlink" title="组件内部还包含其它组件"></a>组件内部还包含其它组件</h3><p>有时跳转到一个组件的时候，组件里面还包含着其它的组件(即这个组件里也有\&lt;router-view>标签)，此时需要用到子路由能让新组件里面的子组件显示，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">      path: <span class="string">'/User/:id'</span>,</span><br><span class="line">      name: <span class="string">'User'</span>,</span><br><span class="line">      component: User,</span><br><span class="line">      children: [</span><br><span class="line">        </span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">"GetJob"</span>, <span class="attr">component</span>: Getjob &#125;, </span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">"Putjob"</span>, <span class="attr">component</span>: Putjob &#125;,</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>以上便是子路由的定义，它由children后的映射定义。</p>
+<h3 id="组件传参"><a href="#组件传参" class="headerlink" title="组件传参"></a>组件传参</h3>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/27/techblog/" data-id="cjxiwnxrw0003ngori6p7s160" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/27/techblog/" data-id="cjxj510s50003z4orrlivfw9p" class="article-share-link">Share</a>
       
       
     </footer>
